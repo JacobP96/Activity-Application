@@ -1,16 +1,19 @@
 
-const RenderAvctivity = (props) =>{
+const Avctivity = (props) =>{
 return(
-  <div>
-Aktivitet: {props.show.activity}
+  <div className="Info">
+<label > Activity: </label>
+ {props.show.activity}
 <br></br>
 <br></br>
-Typ: {props.show.type}
+<label > Type: </label>
+ {props.show.type}
 <br></br>
 <br></br>
-Antal deltagare: {props.show.participants}
+<label > Participants: </label>
+ {props.show.participants}
  
 </div>
 )
 }
-export default RenderAvctivity;
+export default Avctivity;

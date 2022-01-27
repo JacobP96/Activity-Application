@@ -1,57 +1,62 @@
 
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import Activity from "./activity"
 import * as ReactBootStrap from "react-bootstrap";
+import {Button} from "react-bootstrap"
 
-const Test = () =>{
+const FindActivity = () =>{
   const [show,setShow]=useState(null);
   const [loading,setLoading] = useState(false)
 
-const SearchActivity = () => {
-  
+const SearchRandomActivity = () => {
+
     fetch("http://www.boredapi.com/api/activity/")
     .then((response)=> response.json())
     .then((json)=> setShow(json));
     setLoading(true)
+    setShow(null)
   }
 
-  const Participants = () =>{
+  const ChooseParticipants = () =>{
     
     let value = document.querySelector("#aktivitet").value
     fetch(`http://www.boredapi.com/api/activity?participants=${value}`)
     .then((response)=> response.json())
     .then((json)=> setShow(json));
     setLoading(true)
+    setShow(null)
+ 
   }
   
   return (
-    <div>  
-      <button
+    <div className="App">  
+    <br />
+     <Button variant="success"
         onClick={() => {
-          SearchActivity();
-          
-        }}
+          SearchRandomActivity();
+            }}
       >
-        Hitta en random aktivitet
-      </button>
+        Find a random activity
+      </Button>
+      <br/>
       <br />
-      <label for="aktivitet">Välj en aktivitet baserat på deltagare:</label>
-
-<select name="aktivitet" id="aktivitet">
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="4">4</option>
-  
+      <label for="aktivitet">Choose a activity based on participants:</label>
+      <select className="select" name="aktivitet" id="aktivitet">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="4">4</option>  
 </select>
-<button  onClick={() => {
-         Participants();
+ 
+  <Button variant="success" onClick={() => {
+         ChooseParticipants();
          
-        }}>Hitta aktivitet</button>
+        }}>Find activity</Button>
 <br />
 <br />
-    { loading && show ?  <Activity show={show}/> : <ReactBootStrap.Spinner animation="border" /> }
+{loading && show  ?  <Activity show={show}/> : <ReactBootStrap.Spinner animation="border" />  }
+
     </div>
   );
 };
 
-export default Test;
+export default FindActivity;

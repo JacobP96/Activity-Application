@@ -6,9 +6,13 @@ export default function App() {
 
     return (
       <div className="App">
-     <h1>Activity Application</h1>
-        <FindActivity />
-      </div>
+        <br/>
+        <header><h1>Activity Application</h1>
+        </header>   
+   <body>
+   <FindActivity />
+   </body>
+     </div>
     );
 
 }
