@@ -1,5 +1,5 @@
 
-import {useState,useEffect} from "react";
+import {useState} from "react";
 import Activity from "./activity"
 import * as ReactBootStrap from "react-bootstrap";
 import {Button} from "react-bootstrap"
@@ -7,24 +7,27 @@ import {Button} from "react-bootstrap"
 const FindActivity = () =>{
   const [show,setShow]=useState(null);
   const [loading,setLoading] = useState(false)
+  const [xloading,setXLoading] = useState(false)
 
 const SearchRandomActivity = () => {
-
+    setShow(null)
+    setLoading(true)
     fetch("http://www.boredapi.com/api/activity/")
     .then((response)=> response.json())
     .then((json)=> setShow(json));
-    setLoading(true)
-    setShow(null)
+    setLoading(false)
+    setXLoading(true)
   }
 
   const ChooseParticipants = () =>{
-    
+    setShow(null)
+    setLoading(true)
     let value = document.querySelector("#aktivitet").value
     fetch(`http://www.boredapi.com/api/activity?participants=${value}`)
     .then((response)=> response.json())
     .then((json)=> setShow(json));
-    setLoading(true)
-    setShow(null)
+    setLoading(false)
+    setXLoading(true)
  
   }
   
@@ -53,7 +56,7 @@ const SearchRandomActivity = () => {
         }}>Find activity</Button>
 <br />
 <br />
-{loading && show  ?  <Activity show={show}/> : <ReactBootStrap.Spinner animation="border" />  }
+{!loading && show ?  <Activity show={show}/> :!loading && !show && xloading? <ReactBootStrap.Spinner animation="border" /> : null}
 
     </div>
   );
